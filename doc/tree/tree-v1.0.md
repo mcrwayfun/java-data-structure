@@ -1,0 +1,510 @@
+## 树状结构
+### 1. 树
+
+![](https://i.imgur.com/y50xITm.jpg)
+
+#### 1.1 什么是树
+树是具有n个结点的有限集合
+- 当n=0时，有且仅存在一个结点，该结点称为根结点
+- 当n>0时，其余结点分为m个互斥的有限集合T1，T2，T3，每个集合分别称为子树
+
+由此可知，**树的定义是一个递归的定义，即树的定义中又用到了树的概念。**
+#### 1.2 树的结构
+```java
+	 /**
+     * 构造函数
+     *
+     * @param <T>
+     */
+    public class TreeNode<T> {
+        private int index;
+		// 数据项
+        private T data;
+		// 指向左结点分支
+        private TreeNode leftChild;
+		// 指向右结点分支
+        private TreeNode rightChild;
+
+        ... get and set ...
+    }
+```
+#### 1.3 树的基本性质
+1. 结点：包含了数据项和指向其他结点的分支
+2. **结点的度：结点所拥有的子树棵树。例如上图中，A的度为1，C的度为2，D的度为3**
+3. **叶结点&终端结点：即度为0的结点，例如上图中，F，G，H，I，J均为叶结点**
+4. **分支结点&非终端结点：除了叶结点以外的其他结点**
+5. 子女结点：若结点x有子树，则子树的根结点即为结点x的子女。例如上图中，A有两个子女，分别为B,C
+6. 父结点：若结点x有子女，它即为子女的父结点
+7. **根结点：没有父结点的结点称为根结点**
+8. 兄弟结点：同一父结点的子女互称为兄弟。例如上图中，D,E,F互为兄弟
+9. 祖先结点：从根结点到该结点所经历分支上的所有结点。例如上图中，G的祖先结点为A,B,D
+10. 子孙结点：某一结点的子女，以及这些子女的子女都是该结点的子孙。例如上图中，结点B的子孙D，G
+11. 结点所处的层次：从根到该结点所经路径上的分支条数.根结点在第1层，它的子女在第二层。树中任一结点的层次为它的父结点的层次加1。结点所处层次亦称为结点的深度
+12. **树的高度：叶结点的高度为1，非叶结点的高度等于它子女结点高度的最大值加1。该树的高度为4**
+13. **树的度：树中结点的度的最大值。例如上图中该树的高度为3**
+
+### 2. 二叉树
+![](https://i.imgur.com/iimLiCs.jpg)
+
+#### 2.1 什么是二叉树
+二叉树是树的一种特殊形态。二叉树的特点是每个结点最多拥有两个子女（就是不存在度大于2的结点），分别称为左子女和右子女，并且二叉树的子树有左右之分，其子树次序不能颠倒。
+
+#### 2.2 特殊二叉树
+##### 2.2.1 斜树
+所有结点都**只有左子树**的叫做左斜树，所有节点都**只有右子树**的叫做右斜树
+![](https://i.imgur.com/FKivpvt.jpg)
+
+##### 2.2.2 满二叉树
+满二叉树：深度为k的满二叉树是有2^k-1个结点的二叉树。在满二叉树中，**每一层的结点都达到了最大个数**。除了最底层的结点度为0外，其他各层结点的度均为2。如图所示，给出的是一棵高度为4的满二叉树。
+![](https://i.imgur.com/JAVZDpU.png)
+
+##### 2.2.3 完全二叉树
+如果一棵具有n个结点的深度为k的二叉树，它的每一个结点都与高度为k的满二叉树中编号为1~n的结点一一对应，则称其为完全二叉树。其特点**是从第一层到k-1层的所有各层的结点数都是满的，仅最下面第k层是满的，或从右向左连续缺若干结点。**
+![](https://i.imgur.com/9CEnFse.jpg)
+
+#### 2.3 二叉树的性质
+##### a、在非空二叉树的第i层上，至多有`2^(i-1)`个结点
+假设这是一棵满二叉树，则1、2、3层分别有1、2、4个结点，满足以上性质
+##### b、深度为k的二叉树至多有`2^k-1`个结点
+假设这是一棵满二叉树，则4层有15个结点，满足以上的性质
+##### c、对任何一颗二叉树T，如果其终端结点数为n0,度为2的结点数为n2，则n0 = n2+1
+假设二叉树中度为1的结点数为n1，因为二叉树只有度为1，2，0的结点，所以有**n=n0+n1+n2**。再看二叉树分支条数e，因为二叉树除了根结点没有父结点，进入它的边数为0之外，其他每一结点都有一个且仅有一个父结点，进入它们的边数均为1，故二叉树中总的边数为**e=n-1=n0+n1+n2-1**。又由于每个度为2的结点发出2条边，每个度为1的结点发出1条边，每个度为0的结点发出0条边，因此总的边数**e=2n2+1n1+0n0=2n2+n1**,由以上两式可以得出**n0= n2+1**
+![](https://i.imgur.com/9CEnFse.jpg)
+
+上图中结点总数是10，n2(1、2、3、4)为4，n1(5)为1，n0(6、7、8、9、10)为5
+
+##### d、具有n个结点的完全二叉树深度为`⌈log2(n+1)⌉`，对以2为底n+1对数进行**向上取整**(⌈⌉是向上取整符号)
+可以由性质2得出，深度为k的完全二叉树最多有  <a href="http://www.codecogs.com/eqnedit.php?latex=n&space;\leq&space;2^{k}-1" target="_blank" ><img src="http://latex.codecogs.com/gif.latex?n&space;\leq&space;2^{k}-1" title="n \leq 2^{k}-1" /></a>个结点，最少有<a href="http://www.codecogs.com/eqnedit.php?latex=2^{k-1}-1" target="_blank"><img src="http://latex.codecogs.com/gif.latex?2^{k-1}-1" title="2^{k-1}-1" /></a>个，因此：
+
+<a href="http://www.codecogs.com/eqnedit.php?latex=\inline&space;\dpi{100}&space;2^{k-1}-1&space;<&space;n&space;\leq&space;2^{k}-1" target="_blank"><img src="http://latex.codecogs.com/gif.latex?\inline&space;\dpi{100}&space;2^{k-1}-1&space;<&space;n&space;\leq&space;2^{k}-1" title="2^{k-1}-1 < n \leq 2^{k}-1" /></a>
+
+<a href="http://www.codecogs.com/eqnedit.php?latex=\inline&space;\dpi{100}&space;2^{k-1}&space;<&space;n&plus;1&space;\leq&space;2^{k}" target="_blank"><img src="http://latex.codecogs.com/gif.latex?\inline&space;\dpi{100}&space;2^{k-1}&space;<&space;n&plus;1&space;\leq&space;2^{k}" title="2^{k-1} < n+1 \leq 2^{k}" /></a>
+
+<a href="http://www.codecogs.com/eqnedit.php?latex=\inline&space;\dpi{100}&space;k-1&space;<&space;log_{2}(n&plus;1)&space;\leq&space;k" target="_blank"><img src="http://latex.codecogs.com/gif.latex?\inline&space;\dpi{100}&space;k-1&space;<&space;log_{2}(n&plus;1)&space;\leq&space;k" title="k-1 < log_{2}(n+1) \leq k" /></a>
+
+因为<a href="http://www.codecogs.com/eqnedit.php?latex=\bg_white&space;log_{2}(n&plus;1)" target="_blank"><img src="http://latex.codecogs.com/gif.latex?\bg_white&space;log_{2}(n&plus;1)" title="log_{2}(n+1)" /></a>介于 K-1 和 K之间且不等于 K-1，深度又只能是整数，所以有⌈<a href="http://www.codecogs.com/eqnedit.php?latex=\bg_white&space;log_{2}(n&plus;1)" target="_blank"><img src="http://latex.codecogs.com/gif.latex?\bg_white&space;log_{2}(n&plus;1)" title="log_{2}(n+1)" /></a>⌉
+
+##### e、如果有一颗有n个结点的完全二叉树的节点按层次序编号，对任一层的结点i（1<=i<=n）有
+1.  如果i=1，则结点是二叉树的根，无双亲，如果i>1，则其双亲结点为⌊i/2⌋，向下取整
+2.  如果2i>n那么结点i没有左孩子，否则其左孩子为2i
+3.  如果2i+1>n那么结点没有右孩子，否则右孩子为2i+1
+4.	若结点i为奇数，且i!=1，它处于右兄弟位置，则它的左兄弟结点i-1
+5.	若结点i为偶数，且i!=n，它处于左兄弟位置，则它的右兄弟为结点i+1
+6.	结点i所在的层次为⌊log2^i⌋+1
+![](https://i.imgur.com/9CEnFse.jpg)
+
+通过上图来验证
+1. 当i = 1时，结点为根结点；当i=5时，其父结点为5/2 = 2；
+2. 当i = 6，2*6 = 12 > 10，结点6无左孩子，满足；当i = 4，2*4 = 8 < 10，结点4的左孩子为8，满足；
+3. 当i = 5，2*5 + 1 = 11> 10，结点5无右孩子，满足；当i = 4，2*4 + 1 = 9 < 10，结点4的右孩子为9，满足；
+4. 当i = 3，它处于右兄弟位置，且其左兄弟为2
+5. 当i = 8, 它处于左兄弟位置，且其右兄弟为9
+
+### 3 二叉树的存储方式
+#### 3.1 完全二叉树的存储结构：顺序存储 
+对一棵具有n个结点的完全二叉树按照层次编号，则其存储结构可以顺序存储，如下图所示：
+
+![](https://i.imgur.com/MQwlrtt.png)
+![](https://i.imgur.com/w9OswgO.jpg)
+
+#### 3.2 一般二叉树的存储结构：顺序存储
+如图所示，其中红色箭头指向的结点不存在，这是一棵一般二叉树。对这棵树按照完全二叉树的方式编号，不存在的结点设置为空，则其存储结构可以顺序存储，如下图所示：
+
+![](https://i.imgur.com/fRdhUbK.png)
+![](https://i.imgur.com/kgPrbUY.jpg)
+
+#### 3.3 使用链表来存储二叉树
+使用双向链表来存储一棵二叉树，数据结构如下所示：
+```
+class TreeNode{
+
+	int data;
+	TreeNode leftChild;
+	TreeNode rightChild;
+}
+```
+![](https://i.imgur.com/CSrFw2u.png)
+
+### 4 二叉树的遍历与实现
+二叉树遍历：从树的根节点出发，按照某种次序依次访问二叉树中所有的结点，使得每个结点被访问仅且一次。普遍有三种遍历方式，前序、中序和后序；这里有两个关键词：访问和次序。有一个基本思想要注意下：**一个根结点+左右子树均可以看作一棵二叉树**
+
+#### 4.1 递归实现二叉树的遍历
+##### 4.1.1 前序遍历
+
+![](https://i.imgur.com/w2EWdN9.png)
+
+基本思想：若二叉树为空，则返回。否则从根结点开始，优先访问根结点，再前序遍历左子树，前序遍历右子树，即**根——左——右**
+
+图中按照前序遍历的访问结果为：A、B、D、G、H、C、E、I、F
+
+使用代码递归来实现前序遍历，如下所示：
+```
+	/**
+     * 前序遍历（中左右）
+     * output:A、B、D、G、H、C、E、I、F
+     * @param root
+     */
+    public void preOrder(TreeNode root) {
+
+        if (root == null) {
+            return;
+        } else {
+            System.out.println("preOrder data:" + root.getData());
+            preOrder(root.leftChild);
+            preOrder(root.rightChild);
+        }
+    }
+```
+
+##### 4.1.2 中序遍历
+![](https://i.imgur.com/S8epHz8.png)
+
+基本思想：若二叉树为空，则返回。否则优先中序遍历左子树，再访问根结点，再后序遍历右子树，即**左——根——右**
+
+图中按照中序遍历的访问结果为：G、D、H、B、A、E、I、C、F
+
+使用代码递归来实现中序遍历，如下所示：
+```
+	/**
+     * 中序遍历（左中右）
+     * output:G、D、H、B、A、E、I、C、F
+     * @param root
+     */
+    public void midOrder(TreeNode root) {
+
+        if (root == null) {
+            return;
+        } else {
+            midOrder(root.leftChild);
+            System.out.println("midOrder data:" + root.getData());
+            midOrder(root.rightChild);
+        }
+    }
+```
+
+##### 4.1.3 后序遍历
+
+![](https://i.imgur.com/P3UaLEn.png)
+基本思想：若二叉树为空，则返回。否则优先后序遍历左子树，再后序遍历右子树，最后访问根结点，，即**左——右——根**
+
+图中按照后序遍历的访问结果为：G、H、D、B、I、E、F、C、A
+
+使用代码递归来实现后序遍历，如下所示：
+```
+    /**
+     * 后序遍历（左右中）
+     * output:G、H、D、B、I、E、F、C、A
+     * @param root
+     */
+    public void postOrder(TreeNode root){
+
+        if (root == null) {
+            return;
+        } else {
+            postOrder(root.leftChild);
+            postOrder(root.rightChild);
+            System.out.println("postOrder data:" + root.getData());
+        }
+    }
+```
+
+#### 4.2 非递归实现二叉树的遍历
+##### 4.2.1 利用栈进行前序遍历
+![](https://i.imgur.com/vHdZahj.png)
+
+每访问一个结点后，在向左子树遍历下去之前，利用栈来记录该结点的右子女（如果有的话），以便在左子树退回时可以直接从栈顶取得右子树的根结点，继续其右子树的遍历。上图是过程的演示，先将null压入栈中，当栈中无元素时将其推出，表示结束。
+```java
+	/**
+     * 前序遍历非递归算法
+     * output:A-B-D-E-C-F
+     * @param root
+     */
+    public void preOrderNonRecursive(TreeNode root) {
+
+        Stack<TreeNode> nodeStack = new Stack<>();
+        nodeStack.push(null);
+        while (root != null) {
+            // 访问根结点
+            System.out.println("preOrderNonRecursive data:" + root.getData());
+            // 当前结点右子树不为空则放入栈中
+            if (root.rightChild != null)
+                nodeStack.push(root.rightChild);
+            // 访问左子树
+            if (root.leftChild != null)
+                root = root.leftChild;
+            else root = nodeStack.pop();
+        }
+    }
+```
+##### 4.2.2 利用栈进行中序遍历
+从根结点开始沿着leftChild到最下角的结点，将指针依次压入栈中，直到该结点的leftChild指针为NULL。访问它的数据后，再遍历该结点的右子树。此时该结点为栈中推出的指针。
+```java
+ 	/**
+     * 中序遍历非递归算法
+     * output:D-B-E-A-F-C
+     * @param root
+     */
+    public void midOrderNonRecursive(TreeNode root) {
+
+        Stack<TreeNode> nodeStack = new Stack<>();
+        do {
+            while (root != null) {
+                nodeStack.push(root);
+                root = root.leftChild;
+            }
+
+            if (!nodeStack.empty()) {
+                root = nodeStack.pop();
+                System.out.println("preOrderNonRecursive data:" + root.getData());
+                root = root.rightChild;
+            }
+        } while (root != null || !nodeStack.empty());
+    }
+
+```
+
+##### 4.2.3 利用栈进行后序遍历
+因为后序遍历的访问顺序为左右根，所以在访问的时候比较麻烦，需要考虑到访问完左结点后，当前结点有无右结点需要访问，若有则需要右进访问右子树，所以要有一个变量来记录当前结点。
+- 从根结点开始沿着leftChild到最下角的结点，将指针依次压入栈中，直到该结点的leftChild指针为NULL。
+- 判断当前结点有无右子树，若有，则优先访问右子树
+- 无右子树货已经访问过右子树则访问当前结点
+
+```java
+	/**
+     * 后序遍历非递归算法
+     * output:D-E-B-F-C-A
+     *
+     * @param root
+     */
+    public void postOrderNonRecursive(TreeNode root) {
+
+        Stack<TreeNode> nodeStack = new Stack<>();
+        // 上一个结点
+        TreeNode prev = root;
+        do {
+            while (root != null) {
+                nodeStack.push(root);
+                root = root.leftChild;
+            }
+
+            // 访问当前结点的右结点
+            if (!nodeStack.empty()) {
+                // 获取右子树，但先不弹出
+                TreeNode temp = nodeStack.peek().rightChild;
+                // 不存在右子树或右子树已经访问过，可以访问父结点
+                if (temp == null || temp == prev) {
+
+                    root = nodeStack.pop();
+                    System.out.println("postOrderNonRecursive data:" + root.getData());
+                    // 记录访问过的结点
+                    prev = root;
+                    // 当前结点置空
+                    root = null;
+                } else {
+                    // 存在右子树，需要优先访问右子树
+                    root = temp;
+                }
+            }
+        } while (root != null || !nodeStack.empty());
+    }
+```
+
+### 5 获取二叉树的高度和度
+
+#### 5.1 获取二叉树高度
+树的性质第12点：叶结点的高度为1，非叶结点的高度等于它子女结点高度的最大值加1。核心思想是递归实现
+```java
+	/**
+     * 求二叉树的深度（高度）
+     *
+     * @return
+     */
+    public int getHeight() {
+        return getHeight(root);
+    }
+
+    /**
+     * 求二叉树的深度（高度）
+     *
+     * @param root
+     * @return
+     */
+    private int getHeight(TreeNode root) {
+        if (root == null) {
+            return 0;
+        } else {
+            int i = getHeight(root.leftChild);
+            int j = getHeight(root.rightChild);
+            return i >= j ? i + 1 : j + 1;
+        }
+    }
+```
+
+#### 5.2 获取二叉树的度
+```java
+	/**
+     * 求二叉树的结点数
+     *
+     * @return
+     */
+    public int getSize() {
+        return getSize(root);
+    }
+
+    /**
+     * 求二叉树的结点数
+     *
+     * @param root
+     * @return
+     */
+    private int getSize(TreeNode root) {
+
+        if (root == null) {
+            return 0;
+        } else {
+            return 1 + getSize(root.leftChild) + getSize(root.rightChild);
+        }
+    }
+```
+
+#### 6 创建一棵二叉树
+完全二叉树和满二叉树是一般二叉树的一种形态，所以只要会创建一般二叉树即会创建所有形态的二叉树。用数组来存储一棵二叉树，对这棵树按照完全二叉树的方式编号，其中结点不存在的使用特殊字符来标明。
+
+现有一棵二叉树如下图所示，则其用数组表示为`['A','B','D','#','#','E','#','#','F','#','#','#']`,叶结点需要带子女结点，且子女结点用特殊字符标识。
+```
+        A
+      /  \
+     B    C
+    / \  /
+   D   E F
+```
+1. 输入一个arraylist，list中存放的数据是结点数组（通过`list.reove`来获取数据）
+2. 获取list下标为0的元素（总是第一个），如果遇到结束符'#'，则不创建结点，并执行`remove(0)`；否则创建一个结点，判断`index = 0`是否成立，若成立则表明根结点不存在，创建根结点，并执行`remove(0)`
+3. 循环步骤1，2，递归创建左子树和右子树
+
+```java
+	/**
+     * 前序遍历创建二叉树
+     * ABD##E##CF###
+     *
+     * @param data
+     * @return
+     */
+    public TreeNode createBinaryTree(List<String> data) {
+
+        if (data == null || data.isEmpty())
+            return null;
+
+        return createBinaryTreeHelper(data.size(), data);
+    }
+
+    private TreeNode createBinaryTreeHelper(int size, List<String> data) {
+
+        TreeNode node;
+
+        String d = data.get(0);
+        int index = size - data.size();
+
+        // 遇到结束符#
+        if (d.equals("#")) {
+            node = null;
+            data.remove(0);
+            return node;
+        }
+        node = new TreeNode(index, d);
+        // 根结点
+        if (index == 0) {
+            root = node;
+        }
+        data.remove(0);
+        node.leftChild = createBinaryTreeHelper(size, data);
+        node.rightChild = createBinaryTreeHelper(size, data);
+        return node;
+
+    }
+```
+
+### 7 其他应用（层序遍历，复制二叉树，判断二叉树是否相等）
+#### 7.1 层序遍历
+层序遍历依照从根结点开始，自上而下，从左到右。需要有一个结构来存储当前层的结点，当访问完当前层结点后，将其抛出后继续访问下层结点，队列的先进先出符合这一要求。
+- 将根节点压入队列中
+- 队列不为空则开始循环，此时只有根结点，则推出根结点并访问。判断根结点有无左右子树，若有则将其压入队列中
+- 队列为空，结束循环
+
+```java
+ 	/**
+     * 层序遍历
+     *
+     * @param root
+     */
+    public List<List<String>> levelOrder(TreeNode root) {
+
+        List<List<String>> reList = new ArrayList<>();
+        Queue<TreeNode> nodeQueue = new LinkedList<>();
+        // 压入根结点
+        nodeQueue.offer(root);
+        while (!nodeQueue.isEmpty()) {
+            int levelSize = nodeQueue.size();
+            List<String> subList = new ArrayList<>();
+            while (levelSize != 0) {
+                TreeNode temp = nodeQueue.poll();
+                subList.add(temp.getData() + "");
+                if (temp.leftChild != null) nodeQueue.offer(temp.leftChild);
+                if (temp.rightChild != null) nodeQueue.offer(temp.rightChild);
+                levelSize--;
+            }
+            reList.add(subList);
+        }
+
+        return reList;
+    }
+```
+#### 7.2 通过前序遍历复制一棵二叉树
+为了实现二叉树的复制方法，可以利用二叉树的前序遍历算法。若二叉树parent不为空，则首先复制根结点，这相当于二叉树前序遍历中访问根结点的语句；然后分别复制二叉树的左子树和右子树，这相当于二叉树前序遍历算法中的遍历左子树和右子树。整个算法的思想是递归。
+
+```java
+	/**
+     * 复制一棵二叉树
+     * @param parent
+     * @return
+     */
+    public TreeNode copy(TreeNode parent){
+
+        if(parent == null)
+            return null;
+
+        // 构造根结点
+        TreeNode temp = new TreeNode(parent.getIndex(),parent.getData());
+
+        // 递归构造左子树
+        temp.leftChild = copy(parent.leftChild);
+
+        // 递归构造右子树
+        temp.rightChild = copy(parent.rightChild);
+
+        return temp;
+    }
+```
+#### 7.3 判断两棵树是否相等
+
+递归判断每个结点的`s.data == t.data`是否成立即可
+```java
+	/**
+     * 判断两棵树是否相等
+     * @param s
+     * @param t
+     * @return
+     */
+    public boolean euqal(TreeNode s,TreeNode t){
+
+        if(s == null && t == null)
+            return true;
+
+        if(s != null && t != null && s.data == t.data &&
+                euqal(s.leftChild,t.leftChild) &&
+                euqal(s.rightChild,t.rightChild))
+            return true;
+        else
+            return false;
+    }
+```
