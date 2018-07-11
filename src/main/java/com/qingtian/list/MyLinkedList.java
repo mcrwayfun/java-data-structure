@@ -29,7 +29,7 @@ public class MyLinkedList {
      */
     public void createLinkedList() {
 
-        if(first == null){
+        if (first == null) {
             first = new Node<>("A");
         }
 
@@ -75,7 +75,7 @@ public class MyLinkedList {
     /**
      * 清空一个链表
      */
-    public void clear(){
+    public void clear() {
         this.first = null;
     }
 
@@ -172,6 +172,51 @@ public class MyLinkedList {
     }
 
     /**
+     * 反转一个单链表
+     *
+     * @param first 头结点
+     * @author mcrwayfun
+     * @version 1.0
+     * @date 2018/7/11
+     */
+    public void reverse(Node first) {
+
+        Node current = first;
+        Node before = null;
+        while (current != null) {
+            Node temp = before;
+            before = current;
+            current = current.next;
+            before.next = temp;
+        }
+        this.first = before;
+        this.last = first;
+    }
+
+    /**
+     * 串联两个单链表
+     *
+     * @param head1 单链表1
+     * @param head2 单链表2
+     * @return
+     * @author mcrwayfun
+     * @version 1.0
+     * @date 2018/7/11
+     */
+    public Node concatenate(Node head1, Node head2) {
+
+        Node current = head1;
+        Node last = null;
+        while (current != null) {
+            last = current;
+            current = current.next;
+        }
+        last.next = head2;
+
+        return head1;
+    }
+
+    /**
      * Node类，用于初始化一个结点
      *
      * @param <T>
@@ -195,6 +240,7 @@ public class MyLinkedList {
         }
 
     }
+
 
     public static void main(String[] args) {
 
@@ -221,7 +267,24 @@ public class MyLinkedList {
         myLinkedList.clear();
         myLinkedList.createLinkedList();
         Node C = myLinkedList.get("C");
-        myLinkedList.insert(C,"I");
+        myLinkedList.insert(C, "I");
         myLinkedList.print(myLinkedList.first);
+
+        log.info("----------------- 翻转链表 ----------------------");
+        myLinkedList.clear();
+        myLinkedList.createLinkedList();
+        myLinkedList.reverse(myLinkedList.first);
+        myLinkedList.print(myLinkedList.first);
+
+        log.info("----------------- 串联链表 ----------------------");
+        myLinkedList.clear();
+        myLinkedList.createLinkedList();
+
+        MyLinkedList myLinkedList1 = new MyLinkedList();
+        myLinkedList1.createLinkedList();
+
+        Node concatenate = myLinkedList.concatenate(myLinkedList.first, myLinkedList1.first);
+        myLinkedList.print(concatenate);
+
     }
 }
