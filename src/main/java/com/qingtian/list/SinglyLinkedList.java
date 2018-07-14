@@ -9,9 +9,9 @@ import org.slf4j.LoggerFactory;
  * @date Created in 2018/07/09
  * @description 单链表
  */
-public class MyLinkedList {
+public class SinglyLinkedList {
 
-    public static final Logger log = LoggerFactory.getLogger(MyLinkedList.class);
+    public static final Logger log = LoggerFactory.getLogger(SinglyLinkedList.class);
 
     private Node first = null;
     private Node last = null;
@@ -19,7 +19,7 @@ public class MyLinkedList {
     /**
      * 构造函数，初始化头结点
      */
-    public MyLinkedList() {
+    public SinglyLinkedList() {
         first = new Node<>("A");
     }
 
@@ -244,47 +244,47 @@ public class MyLinkedList {
 
     public static void main(String[] args) {
 
-        MyLinkedList myLinkedList = new MyLinkedList();
-        myLinkedList.createLinkedList();
+        SinglyLinkedList singlyLinkedList = new SinglyLinkedList();
+        singlyLinkedList.createLinkedList();
 
         log.info("----------------- 链表是否为空 ----------------------");
-        boolean empty = myLinkedList.isEmpty();
+        boolean empty = singlyLinkedList.isEmpty();
         log.info("empty={}", empty);
 
         log.info("----------------- 打印链表 ----------------------");
-        myLinkedList.print(myLinkedList.first);
+        singlyLinkedList.print(singlyLinkedList.first);
 
         log.info("----------------- 在链表末尾插入一个节点 ----------------------");
-        myLinkedList.insert("H");
-        myLinkedList.print(myLinkedList.first);
+        singlyLinkedList.insert("H");
+        singlyLinkedList.print(singlyLinkedList.first);
 
         log.info("----------------- 删除指定节点 ----------------------");
-        Node D = myLinkedList.get("D");
-        myLinkedList.delete(D);
-        myLinkedList.print(myLinkedList.first);
+        Node D = singlyLinkedList.get("D");
+        singlyLinkedList.delete(D);
+        singlyLinkedList.print(singlyLinkedList.first);
 
         log.info("----------------- 在链表指定位置插入一个节点 ----------------------");
-        myLinkedList.clear();
-        myLinkedList.createLinkedList();
-        Node C = myLinkedList.get("C");
-        myLinkedList.insert(C, "I");
-        myLinkedList.print(myLinkedList.first);
+        singlyLinkedList.clear();
+        singlyLinkedList.createLinkedList();
+        Node C = singlyLinkedList.get("C");
+        singlyLinkedList.insert(C, "I");
+        singlyLinkedList.print(singlyLinkedList.first);
 
         log.info("----------------- 翻转链表 ----------------------");
-        myLinkedList.clear();
-        myLinkedList.createLinkedList();
-        myLinkedList.reverse(myLinkedList.first);
-        myLinkedList.print(myLinkedList.first);
+        singlyLinkedList.clear();
+        singlyLinkedList.createLinkedList();
+        singlyLinkedList.reverse(singlyLinkedList.first);
+        singlyLinkedList.print(singlyLinkedList.first);
 
         log.info("----------------- 串联链表 ----------------------");
-        myLinkedList.clear();
-        myLinkedList.createLinkedList();
+        singlyLinkedList.clear();
+        singlyLinkedList.createLinkedList();
 
-        MyLinkedList myLinkedList1 = new MyLinkedList();
-        myLinkedList1.createLinkedList();
+        SinglyLinkedList singlyLinkedList1 = new SinglyLinkedList();
+        singlyLinkedList1.createLinkedList();
 
-        Node concatenate = myLinkedList.concatenate(myLinkedList.first, myLinkedList1.first);
-        myLinkedList.print(concatenate);
+        Node concatenate = singlyLinkedList.concatenate(singlyLinkedList.first, singlyLinkedList1.first);
+        singlyLinkedList.print(concatenate);
 
     }
 }
