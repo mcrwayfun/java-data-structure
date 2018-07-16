@@ -3,6 +3,10 @@ package com.qingtian.list;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+
 /**
  * @author mcrwayfun
  * @version v1.0
@@ -221,7 +225,7 @@ public class SinglyLinkedList {
      *
      * @param <T>
      */
-    public class Node<T> {
+    private static class Node<T> {
 
         private T data;
         private Node next;
@@ -286,5 +290,6 @@ public class SinglyLinkedList {
         Node concatenate = singlyLinkedList.concatenate(singlyLinkedList.first, singlyLinkedList1.first);
         singlyLinkedList.print(concatenate);
 
+        List a = new LinkedList();
     }
 }
