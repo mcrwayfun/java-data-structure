@@ -20,4 +20,6 @@ public interface MyList<E> {
 
     E get(int index);
 
+    void print();
+
 }

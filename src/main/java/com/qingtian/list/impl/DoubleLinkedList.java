@@ -6,42 +6,39 @@ import org.slf4j.LoggerFactory;
 
 /**
  * @author mcrwayfun
- * @version 1.0
- * @description 环形链表
- * @date Created in 2018/7/17
+ * @version v1.0
+ * @date Created in 2018/07/17
+ * @description
  */
-public class CircularLinkedList<E> implements MyList<E> {
+public class DoubleLinkedList<E> implements MyList<E> {
 
-    public static final Logger log = LoggerFactory.getLogger(CircularLinkedList.class);
+    public static final Logger log = LoggerFactory.getLogger(DoubleLinkedList.class);
 
     int size = 0;
 
     Node<E> first;
-    Node<E> last;
 
     /**
      * 清空链表
      */
     @Override
     public void clear() {
-
-        // 循环清空每个节点
         for (Node<E> x = first; x != null; ) {
             Node<E> next = x.next;
             x.item = null;
             x.next = null;
+            x.prev = null;
             x = next;
         }
 
         first = null;
-        last = null;
         size = 0;
     }
 
     /**
      * 判断链表是否为空
      *
-     * @return 如果链表为空则返回true
+     * @return
      */
     @Override
     public boolean isEmpty() {
@@ -49,7 +46,7 @@ public class CircularLinkedList<E> implements MyList<E> {
     }
 
     /**
-     * 在链表指定位置新增一个元素
+     * 在链表的制定位置添加一个元素
      *
      * @param index
      * @param e
@@ -62,147 +59,103 @@ public class CircularLinkedList<E> implements MyList<E> {
             return;
         }
 
-        Node<E> newNode = new Node<>(e, null);
-        // 在头节点处插入
+        Node<E> newNode = new Node<>(e, null, null);
+        // 表头为空，添加一个头元素
         if (index == 0) {
+
+            // 表头为空
+            if (isEmpty()) {
+                first = newNode;
+            }
             newNode.next = first;
+            first.prev = newNode;
             first = newNode;
-            last = newNode;
-        } else if (index == size) {
-            // 在尾部插入
-            newNode.next = first;
-            last.next = newNode;
-            last = newNode;
         } else {
-            // 在中部插入
-            // 获取指定位置前一个元素
+            // 在中部或者末尾添加
+            // 获取添加元素的前一个
             Node<E> node = node(index - 1);
             newNode.next = node.next;
+            node.next.prev = newNode;
             node.next = newNode;
+            newNode.prev = node;
         }
 
-        size++;
     }
 
     /**
-     * 在链表末尾添加元素
+     * 在链表中添加一个元素
      *
      * @param e
      */
     @Override
     public void add(E e) {
 
-        // 检查数据是否存在
+        // 检查数据e是否为空
         if (assertDataNull(e)) {
             return;
         }
 
-        Node<E> newNode = new Node<>(e, null);
+        Node<E> newNode = new Node<>(e, null, null);
+
         // 头节点不存在
         if (isEmpty()) {
             first = newNode;
-            last = newNode;
         } else {
-            last.next = newNode;
-            newNode.next = first;
-            last = newNode;
+            // 在尾部新增
+            // 获取新增元素的前一个
+            Node<E> node = node(size - 1);
+            node.next = newNode;
+            newNode.prev = node;
         }
 
         size++;
     }
 
     /**
-     * 移除指定位置的元素
+     * 移除链表中指定位置的元素
      *
      * @param index
      */
     @Override
     public void remove(int index) {
 
-        // 检查index是否越界
+        // 检查下标是否越界
         if (checkPositionIndex(index)) {
             return;
         }
 
-        // 移除头元素
         if (index == 0) {
+            first.next.prev = null;
             first = first.next;
-            last = first;
-        } else if (index == size) {
-            // 移除尾元素
-            // 获取移除元素的前一个
-            Node<E> node = node(index - 1);
-            node.next = first;
-            last = node;
         } else {
-            // 移除中间的元素
-            // 获取移除元素的前一个
+            // 移除中部和尾部的元素
             Node<E> node = node(index - 1);
             node.next = node.next.next;
+            node.next.next.prev = node;
         }
 
         size--;
     }
 
-    /**
-     * 获取指定元素的数据
-     *
-     * @param index
-     * @return
-     */
     @Override
     public E get(int index) {
 
         // 检查下标是否越界
-        if(checkPositionIndex(index)){
+        if (checkPositionIndex(index)) {
             return null;
         }
 
         return node(index).item;
     }
 
-    /**
-     * 输出环形链表
-     */
     @Override
     public void print() {
-
         Node<E> cur = first;
-
-        do {
-
-            System.out.print(cur.item + " ");
+        while (cur != null) {
+            System.out.printf(cur.item + " ");
             cur = cur.next;
-
-        } while (cur != first);
-
+        }
         System.out.println();
-    }
-
-    /**
-     * 判断链表有没有环
-     *
-     * @return
-     */
-    public boolean hasCycle() {
-
-        if (first == null || first.next == null) {
-            return false;
-        }
-
-        Node<E> fast = first;
-        Node<E> slow = first;
-
-        while (fast.next.next != null) {
-
-            fast = fast.next.next;
-            slow = slow.next;
-
-            if (fast == slow)
-                return true;
-        }
-
-        return false;
     }
 
     /**
@@ -254,19 +207,24 @@ public class CircularLinkedList<E> implements MyList<E> {
     }
 
     private static class Node<E> {
+
         E item;
+        Node<E> prev;
         Node<E> next;
 
-        public Node(E item, Node<E> next) {
+        public Node(E item, Node<E> prev, Node<E> next) {
             this.item = item;
+            this.prev = prev;
             this.next = next;
         }
     }
 
     public static void main(String[] args) {
-        CircularLinkedList<String> list = new CircularLinkedList<>();
+
+        DoubleLinkedList<String> list = new DoubleLinkedList<>();
         log.info("----------------- 链表是否为空: ----------------------");
         System.out.println("链表是否为空:" + list.isEmpty());
+
         log.info("----------------- 向链表中插入元素（A-B-C-D-E）: ----------------------");
         String[] str = new String[]{"A", "B", "C", "D", "E"};
         for (String s : str) {
@@ -286,8 +244,6 @@ public class CircularLinkedList<E> implements MyList<E> {
         list.remove(2);
         list.print();
 
-        log.info("----------------- 判断链表是否存在环: ----------------------");
-        System.out.println("链表list是否存在环:" + list.hasCycle());
 
     }
 }

@@ -53,13 +53,8 @@ public class SinglyLinkedList<E> implements MyList<E> {
     @Override
     public void add(int index, E e) {
 
-        // 检查index是否越界
-        if (checkPositionIndex(index)) {
-            return;
-        }
-
-        // 检查数据e是否为空
-        if (assertDataNull(e)) {
+        // 检查index是否越界或数据e是否为空
+        if (checkPositionIndex(index) || assertDataNull(e)) {
             return;
         }
 
@@ -141,12 +136,19 @@ public class SinglyLinkedList<E> implements MyList<E> {
      */
     @Override
     public E get(int index) {
+
+        // 检查下标是否越界
+        if(checkPositionIndex(index)){
+            return null;
+        }
+
         return node(index).item;
     }
 
     /**
      * 打印链表
      */
+    @Override
     public void print() {
         Node<E> cur = first;
         while (cur != null) {
