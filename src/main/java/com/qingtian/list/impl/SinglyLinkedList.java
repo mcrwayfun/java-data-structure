@@ -1,6 +1,9 @@
 package com.qingtian.list.impl;
 
 import com.qingtian.list.MyList;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 
 /**
  * @author mcrwayfun
@@ -9,6 +12,8 @@ import com.qingtian.list.MyList;
  * @description 单链表
  */
 public class SinglyLinkedList<E> implements MyList<E> {
+
+    public static final Logger log = LoggerFactory.getLogger(SinglyLinkedList.class);
 
     int size = 0;
 
@@ -49,12 +54,14 @@ public class SinglyLinkedList<E> implements MyList<E> {
     public void add(int index, E e) {
 
         // 检查index是否越界
-        if (checkPositionIndex(index))
+        if (checkPositionIndex(index)) {
             return;
+        }
 
         // 检查数据e是否为空
-        if (assertDataNull(e))
+        if (assertDataNull(e)) {
             return;
+        }
 
         Node<E> newNode = new Node<>(e, null);
 
@@ -74,6 +81,34 @@ public class SinglyLinkedList<E> implements MyList<E> {
     }
 
     /**
+     * 在链表尾添加一个元素
+     *
+     * @param e
+     */
+    @Override
+    public void add(E e) {
+
+        // 检查数据e是否为空
+        if (assertDataNull(e)) {
+            return;
+        }
+
+        Node<E> newNode = new Node<>(e, null);
+
+        // 获取当前末尾节点
+        // 如果头节点不存在则创建
+        if (isEmpty()) {
+            first = newNode;
+        } else {
+            // 获取到需要添加的头一个
+            Node<E> node = node(size - 1);
+            node.next = newNode;
+        }
+
+        size++;
+    }
+
+    /**
      * 移除一个指定元素
      *
      * @param index
@@ -81,8 +116,9 @@ public class SinglyLinkedList<E> implements MyList<E> {
     @Override
     public void remove(int index) {
 
-        if (checkPositionIndex(index))
+        if (checkPositionIndex(index)) {
             return;
+        }
 
         // 移除头元素
         if (index == 0) {
@@ -133,6 +169,8 @@ public class SinglyLinkedList<E> implements MyList<E> {
             cur = cur.next;
             prev.next = temp;
         }
+
+        first = prev;
     }
 
     /**
@@ -172,7 +210,7 @@ public class SinglyLinkedList<E> implements MyList<E> {
      * @param index
      * @return
      */
-    public Node<E> node(int index) {
+    Node<E> node(int index) {
 
         Node<E> x = first;
 
@@ -191,5 +229,35 @@ public class SinglyLinkedList<E> implements MyList<E> {
             this.item = item;
             this.next = next;
         }
+    }
+
+    public static void main(String[] args) {
+
+        SinglyLinkedList<String> list = new SinglyLinkedList<>();
+        log.info("----------------- 链表是否为空: ----------------------");
+        System.out.println("链表是否为空:" + list.isEmpty());
+
+        log.info("----------------- 向链表中插入元素（A-B-C-D-E）: ----------------------");
+        String[] str = new String[]{"A", "B", "C", "D", "E"};
+        for (String s : str) {
+            list.add(s);
+        }
+        list.print();
+
+        log.info("----------------- 在指定位置C插入一条数据F: ----------------------");
+        list.add(2, "F");
+        list.print();
+
+        log.info("----------------- 获取指定位置2的数据: ----------------------");
+        String data = list.get(2);
+        System.out.println("index为2的数据为：" + data);
+
+        log.info("----------------- 移除指定位置2的数据: ----------------------");
+        list.remove(2);
+        list.print();
+
+        log.info("----------------- 反转一个链表: ----------------------");
+        list.reverse();
+        list.print();
     }
 }

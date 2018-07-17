@@ -14,6 +14,8 @@ public interface MyList<E> {
 
     void add(int index,E e);
 
+    void add(E e);
+
     void remove(int index);
 
     E get(int index);
