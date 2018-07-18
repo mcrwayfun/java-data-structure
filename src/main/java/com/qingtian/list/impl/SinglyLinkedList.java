@@ -60,12 +60,12 @@ public class SinglyLinkedList<E> implements MyList<E> {
 
         Node<E> newNode = new Node<>(e, null);
 
-        // 在头节点插入
+        // 在头结点插入
         if (index == 0) {
             newNode.next = first;
             first = newNode;
         } else {
-            // 在中间和末尾节点插入
+            // 在中间和末尾结点插入
             // 获取index的前一个数据
             Node<E> node = node(index - 1);
             newNode.next = node.next;
@@ -90,8 +90,8 @@ public class SinglyLinkedList<E> implements MyList<E> {
 
         Node<E> newNode = new Node<>(e, null);
 
-        // 获取当前末尾节点
-        // 如果头节点不存在则创建
+        // 获取当前末尾结点
+        // 如果头结点不存在则创建
         if (isEmpty()) {
             first = newNode;
         } else {
@@ -138,7 +138,7 @@ public class SinglyLinkedList<E> implements MyList<E> {
     public E get(int index) {
 
         // 检查下标是否越界
-        if(checkPositionIndex(index)){
+        if (checkPositionIndex(index)) {
             return null;
         }
 

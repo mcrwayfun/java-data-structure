@@ -16,12 +16,12 @@ public class BinaryTree {
     private static final Logger log = LoggerFactory.getLogger(BinaryTree.class);
 
     /**
-     * 根节点
+     * 根结点
      */
     private TreeNode root = null;
 
     /**
-     * 构造器（初始化根节点）
+     * 构造器（初始化根结点）
      */
     public BinaryTree() {
         root = new TreeNode(1, "A");

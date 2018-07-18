@@ -25,7 +25,7 @@ public class CircularLinkedList<E> implements MyList<E> {
     @Override
     public void clear() {
 
-        // 循环清空每个节点
+        // 循环清空每个结点
         for (Node<E> x = first; x != null; ) {
             Node<E> next = x.next;
             x.item = null;
@@ -63,7 +63,7 @@ public class CircularLinkedList<E> implements MyList<E> {
         }
 
         Node<E> newNode = new Node<>(e, null);
-        // 在头节点处插入
+        // 在头结点处插入
         if (index == 0) {
             newNode.next = first;
             first = newNode;
@@ -98,7 +98,7 @@ public class CircularLinkedList<E> implements MyList<E> {
         }
 
         Node<E> newNode = new Node<>(e, null);
-        // 头节点不存在
+        // 头结点不存在
         if (isEmpty()) {
             first = newNode;
             last = newNode;

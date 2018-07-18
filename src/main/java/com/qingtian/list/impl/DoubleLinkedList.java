@@ -97,7 +97,7 @@ public class DoubleLinkedList<E> implements MyList<E> {
 
         Node<E> newNode = new Node<>(e, null, null);
 
-        // 头节点不存在
+        // 头结点不存在
         if (isEmpty()) {
             first = newNode;
         } else {
@@ -243,7 +243,6 @@ public class DoubleLinkedList<E> implements MyList<E> {
         log.info("----------------- 移除指定位置2的数据: ----------------------");
         list.remove(2);
         list.print();
-
 
     }
 }
