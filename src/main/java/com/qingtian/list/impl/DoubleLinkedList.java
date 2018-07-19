@@ -70,8 +70,13 @@ public class DoubleLinkedList<E> implements MyList<E> {
             newNode.next = first;
             first.prev = newNode;
             first = newNode;
+        } else if (index == size - 1) {
+            // 在末尾添加
+            Node<E> node = node(index - 1);
+            node.next = newNode;
+            newNode.prev = node;
         } else {
-            // 在中部或者末尾添加
+            // 在中部添加
             // 获取添加元素的前一个
             Node<E> node = node(index - 1);
             newNode.next = node.next;
@@ -124,11 +129,16 @@ public class DoubleLinkedList<E> implements MyList<E> {
             return;
         }
 
+        // 移除头结点
         if (index == 0) {
             first.next.prev = null;
             first = first.next;
+        } else if (index == size - 1) {
+            // 移除尾部元素
+            Node<E> node = node(index - 1);
+            node.next = null;
         } else {
-            // 移除中部和尾部的元素
+            // 移除中部元素
             Node<E> node = node(index - 1);
             node.next = node.next.next;
             node.next.next.prev = node;
@@ -183,7 +193,7 @@ public class DoubleLinkedList<E> implements MyList<E> {
      */
     private boolean checkPositionIndex(int index) {
 
-        if (index < 0 || index > size) {
+        if (index < 0 || index >= size) {
             System.out.println("index越界");
             return true;
         } else {
@@ -233,7 +243,7 @@ public class DoubleLinkedList<E> implements MyList<E> {
         list.print();
 
         log.info("----------------- 在指定位置C插入一条数据F: ----------------------");
-        list.add(2, "F");
+        list.add(4, "F");
         list.print();
 
         log.info("----------------- 获取指定位置2的数据: ----------------------");

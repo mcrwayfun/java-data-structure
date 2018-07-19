@@ -68,7 +68,7 @@ public class CircularLinkedList<E> implements MyList<E> {
             newNode.next = first;
             first = newNode;
             last = newNode;
-        } else if (index == size) {
+        } else if (index == size - 1) {
             // 在尾部插入
             newNode.next = first;
             last.next = newNode;
@@ -128,7 +128,7 @@ public class CircularLinkedList<E> implements MyList<E> {
         if (index == 0) {
             first = first.next;
             last = first;
-        } else if (index == size) {
+        } else if (index == size - 1) {
             // 移除尾元素
             // 获取移除元素的前一个
             Node<E> node = node(index - 1);
@@ -154,7 +154,7 @@ public class CircularLinkedList<E> implements MyList<E> {
     public E get(int index) {
 
         // 检查下标是否越界
-        if(checkPositionIndex(index)){
+        if (checkPositionIndex(index)) {
             return null;
         }
 
@@ -166,6 +166,11 @@ public class CircularLinkedList<E> implements MyList<E> {
      */
     @Override
     public void print() {
+
+        if (isEmpty()) {
+            System.out.println("链表为空");
+            return;
+        }
 
         Node<E> cur = first;
 
@@ -230,7 +235,7 @@ public class CircularLinkedList<E> implements MyList<E> {
      */
     private boolean checkPositionIndex(int index) {
 
-        if (index < 0 || index > size) {
+        if (index < 0 || index >= size) {
             System.out.println("index越界");
             return true;
         } else {
@@ -272,8 +277,6 @@ public class CircularLinkedList<E> implements MyList<E> {
         for (String s : str) {
             list.add(s);
         }
-        list.print();
-
         log.info("----------------- 在指定位置C插入一条数据F: ----------------------");
         list.add(2, "F");
         list.print();
@@ -283,7 +286,7 @@ public class CircularLinkedList<E> implements MyList<E> {
         System.out.println("index为2的数据为：" + data);
 
         log.info("----------------- 移除指定位置2的数据: ----------------------");
-        list.remove(2);
+        list.remove(4);
         list.print();
 
         log.info("----------------- 判断链表是否存在环: ----------------------");

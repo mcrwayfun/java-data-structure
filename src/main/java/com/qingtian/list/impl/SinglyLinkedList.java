@@ -183,7 +183,7 @@ public class SinglyLinkedList<E> implements MyList<E> {
      */
     private boolean checkPositionIndex(int index) {
 
-        if (index < 0 || index > size) {
+        if (index < 0 || index >= size) {
             System.out.println("index越界");
             return true;
         } else {
