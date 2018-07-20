@@ -1,6 +1,6 @@
-package com.qingtian.list.impl;
+package com.qingtian.source.list.impl;
 
-import com.qingtian.list.MyList;
+import com.qingtian.source.list.MyList;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

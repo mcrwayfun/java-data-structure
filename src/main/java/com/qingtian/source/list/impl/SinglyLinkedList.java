@@ -1,47 +1,43 @@
-package com.qingtian.list.impl;
+package com.qingtian.source.list.impl;
 
-import com.qingtian.list.MyList;
+import com.qingtian.source.list.MyList;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+
 /**
  * @author mcrwayfun
- * @version 1.0
- * @description 环形链表
- * @date Created in 2018/7/17
+ * @version v1.0
+ * @date Created in 2018/07/16
+ * @description 单链表
  */
-public class CircularLinkedList<E> implements MyList<E> {
+public class SinglyLinkedList<E> implements MyList<E> {
 
-    public static final Logger log = LoggerFactory.getLogger(CircularLinkedList.class);
+    public static final Logger log = LoggerFactory.getLogger(SinglyLinkedList.class);
 
     int size = 0;
 
     Node<E> first;
-    Node<E> last;
 
     /**
      * 清空链表
      */
     @Override
     public void clear() {
-
-        // 循环清空每个结点
         for (Node<E> x = first; x != null; ) {
             Node<E> next = x.next;
             x.item = null;
             x.next = null;
             x = next;
         }
-
         first = null;
-        last = null;
         size = 0;
     }
 
     /**
      * 判断链表是否为空
      *
-     * @return 如果链表为空则返回true
+     * @return
      */
     @Override
     public boolean isEmpty() {
@@ -49,10 +45,10 @@ public class CircularLinkedList<E> implements MyList<E> {
     }
 
     /**
-     * 在链表指定位置新增一个元素
+     * 为链表添加一个元素
      *
-     * @param index
-     * @param e
+     * @param index 指定位置
+     * @param e     数据
      */
     @Override
     public void add(int index, E e) {
@@ -63,19 +59,14 @@ public class CircularLinkedList<E> implements MyList<E> {
         }
 
         Node<E> newNode = new Node<>(e, null);
-        // 在头结点处插入
+
+        // 在头结点插入
         if (index == 0) {
             newNode.next = first;
             first = newNode;
-            last = newNode;
-        } else if (index == size - 1) {
-            // 在尾部插入
-            newNode.next = first;
-            last.next = newNode;
-            last = newNode;
         } else {
-            // 在中部插入
-            // 获取指定位置前一个元素
+            // 在中间和末尾结点插入
+            // 获取index的前一个数据
             Node<E> node = node(index - 1);
             newNode.next = node.next;
             node.next = newNode;
@@ -85,41 +76,41 @@ public class CircularLinkedList<E> implements MyList<E> {
     }
 
     /**
-     * 在链表末尾添加元素
+     * 在链表尾添加一个元素
      *
      * @param e
      */
     @Override
     public void add(E e) {
 
-        // 检查数据是否存在
+        // 检查数据e是否为空
         if (assertDataNull(e)) {
             return;
         }
 
         Node<E> newNode = new Node<>(e, null);
-        // 头结点不存在
+
+        // 获取当前末尾结点
+        // 如果头结点不存在则创建
         if (isEmpty()) {
             first = newNode;
-            last = newNode;
         } else {
-            last.next = newNode;
-            newNode.next = first;
-            last = newNode;
+            // 获取到需要添加的头一个
+            Node<E> node = node(size - 1);
+            node.next = newNode;
         }
 
         size++;
     }
 
     /**
-     * 移除指定位置的元素
+     * 移除一个指定元素
      *
      * @param index
      */
     @Override
     public void remove(int index) {
 
-        // 检查index是否越界
         if (checkPositionIndex(index)) {
             return;
         }
@@ -127,25 +118,18 @@ public class CircularLinkedList<E> implements MyList<E> {
         // 移除头元素
         if (index == 0) {
             first = first.next;
-            last = first;
-        } else if (index == size - 1) {
-            // 移除尾元素
-            // 获取移除元素的前一个
-            Node<E> node = node(index - 1);
-            node.next = first;
-            last = node;
         } else {
-            // 移除中间的元素
-            // 获取移除元素的前一个
-            Node<E> node = node(index - 1);
-            node.next = node.next.next;
+            // 移除中间或者尾部元素
+            // 获取index的前一个数据
+            Node<E> delNode = node(index - 1);
+            delNode.next = delNode.next.next;
         }
 
         size--;
     }
 
     /**
-     * 获取指定元素的数据
+     * 获取指定位置的数据
      *
      * @param index
      * @return
@@ -162,69 +146,33 @@ public class CircularLinkedList<E> implements MyList<E> {
     }
 
     /**
-     * 输出环形链表
+     * 打印链表
      */
     @Override
     public void print() {
-
-        if (isEmpty()) {
-            System.out.println("链表为空");
-            return;
-        }
-
         Node<E> cur = first;
-
-        do {
-
+        while (cur != null) {
             System.out.print(cur.item + " ");
             cur = cur.next;
-
-        } while (cur != first);
-
+        }
         System.out.println();
     }
 
     /**
-     * 判断链表有没有环
-     *
-     * @return
+     * 反转一个单链表
      */
-    public boolean hasCycle() {
+    public void reverse() {
 
-        if (first == null || first.next == null) {
-            return false;
+        Node<E> cur = first;
+        Node<E> prev = null;
+        while (cur != null) {
+            Node<E> temp = prev;
+            prev = cur;
+            cur = cur.next;
+            prev.next = temp;
         }
 
-        Node<E> fast = first;
-        Node<E> slow = first;
-
-        while (fast.next.next != null) {
-
-            fast = fast.next.next;
-            slow = slow.next;
-
-            if (fast == slow)
-                return true;
-        }
-
-        return false;
-    }
-
-    /**
-     * 获取指定位置的Node
-     *
-     * @param index
-     * @return
-     */
-    Node<E> node(int index) {
-
-        Node<E> x = first;
-
-        for (int i = 0; i < index; i++) {
-            x = x.next;
-        }
-
-        return x;
+        first = prev;
     }
 
     /**
@@ -258,6 +206,23 @@ public class CircularLinkedList<E> implements MyList<E> {
         }
     }
 
+    /**
+     * 获取指定位置的Node
+     *
+     * @param index
+     * @return
+     */
+    Node<E> node(int index) {
+
+        Node<E> x = first;
+
+        for (int i = 0; i < index; i++) {
+            x = x.next;
+        }
+
+        return x;
+    }
+
     private static class Node<E> {
         E item;
         Node<E> next;
@@ -269,14 +234,18 @@ public class CircularLinkedList<E> implements MyList<E> {
     }
 
     public static void main(String[] args) {
-        CircularLinkedList<String> list = new CircularLinkedList<>();
+
+        SinglyLinkedList<String> list = new SinglyLinkedList<>();
         log.info("----------------- 链表是否为空: ----------------------");
         System.out.println("链表是否为空:" + list.isEmpty());
+
         log.info("----------------- 向链表中插入元素（A-B-C-D-E）: ----------------------");
         String[] str = new String[]{"A", "B", "C", "D", "E"};
         for (String s : str) {
             list.add(s);
         }
+        list.print();
+
         log.info("----------------- 在指定位置C插入一条数据F: ----------------------");
         list.add(2, "F");
         list.print();
@@ -286,11 +255,11 @@ public class CircularLinkedList<E> implements MyList<E> {
         System.out.println("index为2的数据为：" + data);
 
         log.info("----------------- 移除指定位置2的数据: ----------------------");
-        list.remove(4);
+        list.remove(2);
         list.print();
 
-        log.info("----------------- 判断链表是否存在环: ----------------------");
-        System.out.println("链表list是否存在环:" + list.hasCycle());
-
+        log.info("----------------- 反转一个链表: ----------------------");
+        list.reverse();
+        list.print();
     }
 }

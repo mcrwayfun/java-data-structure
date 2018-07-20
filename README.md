@@ -1,6 +1,11 @@
 # java-data-structure
 用java实现数据结构，形成文档以及代码
 
+### 项目结构
+- com/qingtian/source：源码的实现
+- com/qingtian/practice：牛客网和剑指offer题目源码实现
+- doc：数据结构文档
+
 ### 树的基本概念以及用java实现树：[传送门][tree]
 - 树
 	- 什么是树 
