@@ -1,4 +1,4 @@
-package com.qingtian.practice.linkedlist._03;
+package com.qingtian.practice._69;
 
 import com.qingtian.practice.linkedlist.ListNode;
 import com.qingtian.practice.linkedlist.ListNodeUtil;
@@ -18,6 +18,7 @@ public class Solution {
         }
         // 设置一个带结点的链表
         ListNode newHead = new ListNode(pHead.val - 1);
+        // 指向头结点
         newHead.next = pHead;
         // 当前结点
         ListNode cur = pHead;
@@ -28,7 +29,7 @@ public class Solution {
             // 当前结点值等于下一个结点值
             if (cur.val == cur.next.val) {
                 int val = cur.val;
-                // 循环知道该重复结点全部删除
+                // 循环直到该重复结点全部删除
                 while (cur != null && cur.val == val) {
                     cur = cur.next;
                 }

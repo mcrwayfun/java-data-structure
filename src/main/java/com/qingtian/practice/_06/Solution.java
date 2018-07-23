@@ -1,4 +1,4 @@
-package com.qingtian.practice.linkedlist._01;
+package com.qingtian.practice._06;
 
 import com.qingtian.practice.linkedlist.ListNode;
 import com.qingtian.practice.linkedlist.ListNodeUtil;

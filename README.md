@@ -3,7 +3,7 @@
 
 ### 项目结构
 - com/qingtian/source：源码的实现
-- com/qingtian/practice：牛客网和剑指offer题目源码实现
+- com/qingtian/practice：剑指offer题目源码实现
 - doc：数据结构文档
 
 ### 树的基本概念以及用java实现树：[传送门][tree]
@@ -45,5 +45,5 @@
 		- 双向链表的定义
 		- 双向链表的插入和删除
 
-[tree]:https://github.com/mcrwayfun/java-data-structure/blob/master/doc/tree/树.md
-[linkedList]:https://github.com/mcrwayfun/java-data-structure/blob/master/doc/linkedList/链表.md
+[tree]:https://github.com/mcrwayfun/java-data-structure/blob/master/doc/source/tree/树.md
+[linkedList]:https://github.com/mcrwayfun/java-data-structure/blob/master/doc/source/linkedList/链表.md

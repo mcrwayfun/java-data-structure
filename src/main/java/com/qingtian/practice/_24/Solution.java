@@ -1,4 +1,4 @@
-package com.qingtian.practice.linkedlist._02;
+package com.qingtian.practice._24;
 
 import com.qingtian.practice.linkedlist.ListNode;
 import com.qingtian.practice.linkedlist.ListNodeUtil;
@@ -13,22 +13,31 @@ public class Solution {
 
     public ListNode ReverseList(ListNode head) {
 
-        if (head == null) {
-            return null;
+        // 头指针为空或者仅有一个结点
+        if (head == null || head.next == null) {
+            return head;
         }
 
         ListNode cur = head;
         ListNode prev = null;
+        ListNode pReversedHead = null;
         while (cur != null) {
-            ListNode temp = prev;
+
+            // 保存当前结点的下一个结点
+            ListNode next = cur.next;
+            // 头指针重定向
+            if(next == null){
+                pReversedHead = cur;
+            }
+            // 当前指针转向，指向前一个结点
+            cur.next = prev;
+            // 前结点移动到当前结点
             prev = cur;
-            cur = cur.next;
-            prev.next = temp;
+            // 当前结点移动
+            cur = next;
         }
 
-        head = prev;
-
-        return head;
+        return pReversedHead;
     }
 
     public static void main(String[] args) {
