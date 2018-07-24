@@ -13,31 +13,27 @@ public class Solution {
 
     public ListNode Merge(ListNode list1, ListNode list2) {
 
-        if (list1 == null && list2 == null) {
-            return null;
+        if(list1 == null){
+            return list2;
         }
 
-        ListNode a = list1, b = list2;
-        ListNode dummy = new ListNode(-1);
-        ListNode cur = dummy;
-        while (a != null && b != null) {
-
-            if (a.val < b.val) {
-                cur.next = a;
-                // a链表值小，a移动
-                a = a.next;
-            } else {
-                cur.next = b;
-                // b链表值小，b移动
-                b = b.next;
-            }
-            // 合并链表移动
-            cur = cur.next;
+        if(list2 == null){
+            return list1;
         }
 
-        // 遍历结束后，a或者b两者可能有不为空情况
-        cur.next = (a != null) ? a : b;
-        return dummy.next;
+        ListNode pMergeHead = null;
+
+        // list1小则list1作头
+        if(list1.val < list2.val){
+            pMergeHead = list1;
+            pMergeHead.next = Merge(list1.next,list2);
+        }else{
+            // list2小于等于list1，则list2作头
+            pMergeHead = list2;
+            pMergeHead.next = Merge(list1,list2.next);
+        }
+
+        return pMergeHead;
     }
 
     public static void main(String[] args) {
