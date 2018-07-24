@@ -1,4 +1,4 @@
-package com.qingtian.practice.linkedlist._04;
+package com.qingtian.practice._37;
 
 import com.qingtian.practice.linkedlist.ListNode;
 import com.qingtian.practice.linkedlist.ListNodeUtil;
@@ -7,10 +7,9 @@ import com.qingtian.practice.linkedlist.ListNodeUtil;
  * @author mcrwayfun
  * @version 1.0
  * @description 两个链表的第一个公共结点
- * @date Created in 2018/7/20
+ * @date Created in 2018/7/24
  */
-public class Solution {
-
+public class Solution1 {
 
     public ListNode FindFirstCommonNode(ListNode pHead1, ListNode pHead2) {
 
@@ -37,7 +36,7 @@ public class Solution {
         int[] arrayB = new int[]{2, 4, 8, 9,11};
         ListNode pHead1 = ListNodeUtil.createList(arrayA);
         ListNode pHead2 = ListNodeUtil.createList(arrayB);
-        ListNode listNode = new Solution().FindFirstCommonNode(pHead1, pHead2);
+        ListNode listNode = new Solution1().FindFirstCommonNode(pHead1, pHead2);
         ListNodeUtil.print(listNode);
     }
 }
