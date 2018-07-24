@@ -1,7 +1,7 @@
 package com.qingtian.practice._69;
 
-import com.qingtian.practice.linkedlist.ListNode;
-import com.qingtian.practice.linkedlist.ListNodeUtil;
+import com.qingtian.practice.pojo.ListNode;
+import com.qingtian.practice.util.ListNodeUtil;
 
 /**
  * @author mcrwayfun

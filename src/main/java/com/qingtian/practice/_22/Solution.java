@@ -1,7 +1,7 @@
-package com.qingtian.practice.linkedlist._05;
+package com.qingtian.practice._22;
 
-import com.qingtian.practice.linkedlist.ListNode;
-import com.qingtian.practice.linkedlist.ListNodeUtil;
+import com.qingtian.practice.pojo.ListNode;
+import com.qingtian.practice.util.ListNodeUtil;
 
 /**
  * @author mcrwayfun
@@ -13,29 +13,30 @@ public class Solution {
 
     public ListNode FindKthToTail(ListNode head, int k) {
 
-        if (head == null || k < 0) {
+        if (head == null || k <= 0) {
             return null;
         }
 
-        int count = 0;
-        ListNode cur = head;
-        while (cur != null) {
-            count++;
-            cur = cur.next;
-        }
+        ListNode fast = head, slow = head;
+        // 遍历到第k-1的结点
+        for (int i = 1; i <= k - 1; i++) {
 
-        int index = 1;
-        cur = head;
-        while (cur != null) {
-            // 倒数第k个就是正数length-k+1
-            if (index == (count - k + 1)) {
-                return cur;
+            if (fast.next != null) {
+                fast = fast.next;
+            }else{
+                return null;
             }
-            index++;
-            cur = cur.next;
         }
 
-        return null;
+
+        // slow从头开始遍历，fast从k-1开始遍历
+        while (fast.next != null) {
+            fast = fast.next;
+            slow = slow.next;
+        }
+
+        return slow;
+
     }
 
     public static void main(String[] args) {

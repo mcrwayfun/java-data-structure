@@ -1,7 +1,7 @@
 package com.qingtian.practice._06;
 
-import com.qingtian.practice.linkedlist.ListNode;
-import com.qingtian.practice.linkedlist.ListNodeUtil;
+import com.qingtian.practice.pojo.ListNode;
+import com.qingtian.practice.util.ListNodeUtil;
 
 import java.util.ArrayList;
 import java.util.Stack;

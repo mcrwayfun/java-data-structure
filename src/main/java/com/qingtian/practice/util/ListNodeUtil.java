@@ -1,4 +1,6 @@
-package com.qingtian.practice.linkedlist;
+package com.qingtian.practice.util;
+
+import com.qingtian.practice.pojo.ListNode;
 
 /**
  * @author mcrwayfun

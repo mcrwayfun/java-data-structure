@@ -1,4 +1,4 @@
-package com.qingtian.practice.linkedlist;
+package com.qingtian.practice.pojo;
 
 /**
  * @author mcrwayfun
