@@ -7,7 +7,7 @@
 
 ### 树的基本概念以及用java实现树：[传送门][tree]
 ### 链表的基本概念以及用java实现：[传送门][linkedList]
-### 剑指offerjava实现汇总：[传送门][offer]
+### 剑指offer用java实现汇总：[传送门][offer]
     
 [tree]:https://github.com/mcrwayfun/java-data-structure/blob/master/doc/source/tree/树.md
 [linkedList]:https://github.com/mcrwayfun/java-data-structure/blob/master/doc/source/linkedList/链表.md
