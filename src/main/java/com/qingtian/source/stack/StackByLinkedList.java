@@ -21,6 +21,11 @@ public class StackByLinkedList implements Stack {
      */
     int size;
 
+    public StackByLinkedList() {
+        top = null;
+        size = 0;
+    }
+
     /**
      * 判断当前链表是否为空
      *
@@ -112,6 +117,10 @@ public class StackByLinkedList implements Stack {
         System.out.println();
     }
 
+    public int getSize() {
+        return size;
+    }
+
     private static class Node {
         int item;
         Node next;
@@ -128,7 +137,7 @@ public class StackByLinkedList implements Stack {
         log.info("----------------- 栈是否为空: ----------------------");
         System.out.println("栈是否为空:" + stack.isEmpty());
 
-        int[] datas = new int[]{1,2,3,4,5};
+        int[] datas = new int[]{1, 2, 3, 4, 5};
         stack.initData(datas);
 
         log.info("----------------- 打印当前栈元素: ----------------------");
