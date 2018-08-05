@@ -6,17 +6,17 @@ package com.qingtian.source.stack;
  * @description
  * @date Created in 2018/8/2
  */
-public interface Stack {
+public interface Stack<E> {
 
     boolean isEmpty();
 
-    void push(int data);
+    void push(E data);
 
-    int pop();
+    E pop();
 
-    int peek();
+    E peek();
 
     void clear();
 
-    void print();
+    int length();
 }
