@@ -2,21 +2,28 @@
 
 | #    | Title                                          		  | Tag                                      |
 | :--- | :--------------------------------------------------------| :--------------------------------------- |
-| 06   | [从尾到头打印链表][06]                                     | LinkedList 
-| 22   | [链表中倒数第k个结点][22]                                  | LinkedList 
-| 23   | [链表中环的入口结点][23]                                   | LinkedList
-| 24   | [反转链表][24]                             			      | LinkedList
-| 25   | [合并两个排序的链表][25]                  				  | LinkedList
-| 26   | [复制复杂的链表][26]                  					  | LinkedList
-| 37   | [两个链表的第一个公共结点][37]                              | LinkedList
-| 69   | [删除链表中重复的结点][69]                                  | LinkedList 
+| 01   | [从尾到头打印链表][01]                                     | LinkedList 
+| 02   | [链表中倒数第k个结点][02]                                  | LinkedList 
+| 03   | [链表中环的入口结点][03]                                   | LinkedList
+| 04   | [反转链表][04]                             			       | LinkedList
+| 05   | [合并两个排序的链表][05]                  				   | LinkedList
+| 06   | [复制复杂的链表][06]                  					   | LinkedList
+| 07   | [两个链表的第一个公共结点][07]                              | LinkedList
+| 08   | [删除链表中重复的结点][08]                                  | LinkedList 
+| 09   | [栈的压入，弹出序列][09]                                   | Stack 
+| 10   | [包含min函数的栈][10]                                 	    | Stack 
+| 11   | [用两个栈实现队列][11]                                 	    | Stack 
 
 
-[06]: https://github.com/mcrwayfun/java-data-structure/tree/master/doc/practice/06
-[22]: https://github.com/mcrwayfun/java-data-structure/tree/master/doc/practice/22
-[23]: https://github.com/mcrwayfun/java-data-structure/tree/master/doc/practice/23
-[24]: https://github.com/mcrwayfun/java-data-structure/tree/master/doc/practice/24
-[25]: https://github.com/mcrwayfun/java-data-structure/tree/master/doc/practice/25
-[26]: https://github.com/mcrwayfun/java-data-structure/tree/master/doc/practice/26
-[37]: https://github.com/mcrwayfun/java-data-structure/tree/master/doc/practice/06
-[69]: https://github.com/mcrwayfun/java-data-structure/tree/master/doc/practice/69
+
+[01]: ./01/README.md
+[02]: ./02/README.md
+[03]: ./03/README.md
+[04]: ./04/README.md
+[05]: ./05/README.md
+[06]: ./06/README.md
+[07]: ./07/README.md
+[08]: ./08/README.md
+[09]: ./09/README.md
+[10]: ./10/README.md
+[11]: ./11/README.md
