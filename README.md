@@ -35,7 +35,7 @@
 
 > 栈的基本概念 && 实现栈的基本操作（顺序栈和链式栈）
 
-- [ ] 文档
+- [x] 文档[007]
 - [x] [顺序栈][008]
 - [x] [链式栈][009]
 
@@ -72,6 +72,7 @@
 [004]:./src/main/java/com/qingtian/source/list/impl/SinglyLinkedList.java
 [005]:./src/main/java/com/qingtian/source/list/impl/CircularLinkedList.java
 [006]:./src/main/java/com/qingtian/source/list/impl/DoubleLinkedList.java
+[007]:./doc/source/stack/栈.md
 [008]:./src/main/java/com/qingtian/source/stack/impl/SequenceStack.java
 [009]:./src/main/java/com/qingtian/source/stack/impl/LinkStack.java
 [011]:./src/main/java/com/qingtian/source/queue/impl/SequenceQueue.java

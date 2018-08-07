@@ -37,6 +37,15 @@ public class SequenceStack<E> implements Stack<E> {
     }
 
     /**
+     * 指定长度初始化数组
+     * @param initSize
+     */
+    public SequenceStack(int initSize) {
+        this.capacity = initSize;
+        elementData = new Object[capacity];
+    }
+
+    /**
      * 以默认的元素进栈
      *
      * @param data
@@ -57,7 +66,7 @@ public class SequenceStack<E> implements Stack<E> {
     }
 
     /**
-     * 进栈
+     * 压栈
      *
      * @param data
      * @throws IndexOutOfBoundsException
