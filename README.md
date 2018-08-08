@@ -41,7 +41,7 @@
 
 > 队列的基本概念 && 实现队列的基本操作（顺序队列、链式队列和循环队列）
 
-- [ ] 文档
+- [x] [文档][010]
 - [x] [顺序队列][011]
 - [x] [链式队列][012]
 - [x] [循环队列][013]
@@ -75,6 +75,7 @@
 [007]:./doc/source/stack/栈.md
 [008]:./src/main/java/com/qingtian/source/stack/impl/SequenceStack.java
 [009]:./src/main/java/com/qingtian/source/stack/impl/LinkStack.java
+[010]:./doc/source/queue/队列.md
 [011]:./src/main/java/com/qingtian/source/queue/impl/SequenceQueue.java
 [012]:./src/main/java/com/qingtian/source/stack/impl/LinkQueue.java
 [013]:./src/main/java/com/qingtian/source/stack/impl/LoopQueue.java

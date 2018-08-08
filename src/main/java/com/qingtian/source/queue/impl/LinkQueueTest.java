@@ -14,6 +14,7 @@ public class LinkQueueTest {
         // 添加两个元素
         queue.push(1);
         queue.push(2);
+        queue.push(3);
         System.out.println("打印队列:" + queue);
         // 删除一个元素
         System.out.println("删除一个元素，该元素为:" + queue.pop());

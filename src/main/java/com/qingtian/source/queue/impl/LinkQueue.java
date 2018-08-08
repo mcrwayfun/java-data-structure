@@ -123,7 +123,7 @@ public class LinkQueue<E> implements Queue<E> {
 
         // 检测队列是否空
         checkQueueIsEmpty();
-        return rear.item;
+        return front.item;
     }
 
     @Override
