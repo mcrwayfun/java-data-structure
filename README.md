@@ -52,8 +52,8 @@
 - [x] [源码][014]
 
 > ArrayList
-
-- [ ] 源码
+- [x] [文档][018]
+- [x] [源码][015]
 
 ## 刷题：剑指offer或者leetCode
 > 剑指offer，刷题可以使用[牛客网](https://www.nowcoder.com/ta/coding-interviews?page=1)
@@ -80,5 +80,7 @@
 [012]:./src/main/java/com/qingtian/source/stack/impl/LinkQueue.java
 [013]:./src/main/java/com/qingtian/source/stack/impl/LoopQueue.java
 [014]:./src/main/java/com/qingtian/core/MyLinkedList.java
+[014]:./src/main/java/com/qingtian/core/MyArrayList.java
 [016]:./doc/practice/README.md
 [017]:https://github.com/mcrwayfun/java-leet-code
+[018]:./doc/core/ArrayList源码解析.md
