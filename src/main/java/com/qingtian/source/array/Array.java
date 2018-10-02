@@ -1,22 +1,21 @@
 package com.qingtian.source.array;
 
-import java.util.Arrays;
-
 /**
  * @author mcrwayfun
  * @version v1.0
  * @date Created in 2018/10/01
  * @description
  */
-public class Array {
+public class Array<E> {
 
     // 保存元素使用的数组
-    private int[] data;
+    private E[] data;
     // 数组中元素的个数
     private int size;
 
+    @SuppressWarnings("unchecked")
     public Array(int capacity) {
-        data = new int[capacity];
+        data = (E[]) new Object[capacity];
         this.size = 0;
     }
 
@@ -40,23 +39,23 @@ public class Array {
     }
 
     // 向数组的末尾添加元素
-    void addLast(int e) {
+    void addLast(E e) {
         add(size, e);
     }
 
     // 向数组的头部添加元素
-    void addFirst(int e) {
+    void addFirst(E e) {
         add(0, e);
     }
 
     // 在指定位置添加元素
-    void add(int index, int e) {
-
-        if (size == data.length)
-            throw new IllegalArgumentException("Add failed.Array is full !");
+    void add(int index, E e) {
 
         if (index < 0 || index > size)
             throw new IllegalArgumentException("Add failed.index is invalid !");
+
+        if (size == data.length)
+            resize(2 * data.length);// 扩容两倍
 
         for (int i = size - 1; i >= index; i--)
             data[i + 1] = data[i];
@@ -66,7 +65,7 @@ public class Array {
     }
 
     // 获取指定位置的元素
-    public int get(int index) {
+    public E get(int index) {
 
         if (index < 0 || index >= size)
             throw new IllegalArgumentException("Add failed.index is invalid !");
@@ -75,7 +74,7 @@ public class Array {
     }
 
     // 替换指定位置的元素
-    public void set(int index, int e) {
+    public void set(int index, E e) {
 
         if (index < 0 || index >= size)
             throw new IllegalArgumentException("Set failed.index is invalid !");
@@ -84,10 +83,10 @@ public class Array {
     }
 
     // 判断数组中是否包含该元素
-    public boolean contains(int e) {
+    public boolean contains(E e) {
 
-        for (int x : data) {
-            if (x == e) {
+        for (E x : data) {
+            if (x.equals(e)) {
                 return true;
             }
         }
@@ -95,26 +94,28 @@ public class Array {
     }
 
     // 查找元素e在数组中对应的索引，如果不存在则返回 -1
-    public int find(int e) {
+    public int find(E e) {
 
-        for (int x : data) {
-            if (x == e) {
-                return x;
-            }
-        }
+        for (int i = 0; i < size; i++)
+            if (data[i].equals(e))
+                return i;
         return -1;
     }
 
     // 删除数组中指定索引的元素
-    public int remove(int index) {
+    public E remove(int index) {
 
         if (index < 0 || index >= size)
             throw new IllegalArgumentException("Remove failed.index is invalid !");
 
-        int ret = data[index];
+        E ret = data[index];
         for (int i = index; i <= size - 1; i++)
             data[i] = data[i + 1];
         size--;
+        data[size] = null;// help gc
+
+        if (size == data.length / 4 && data.length / 2 != 0)
+            resize(data.length / 2);// 容量缩减为一半
 
         return ret;
     }
@@ -130,7 +131,7 @@ public class Array {
     }
 
     // 删除数组中指定的元素e
-    public void removeElement(int e) {
+    public void removeElement(E e) {
 
         int index = find(e);
         if (index != -1)
@@ -143,12 +144,23 @@ public class Array {
         StringBuilder res = new StringBuilder();
         res.append(String.format("Array: size = %d , capacity = %d\n", size, data.length));
         res.append('[');
-        for(int i = 0 ; i < size ; i ++){
+        for (int i = 0; i < size; i++) {
             res.append(data[i]);
-            if(i != size - 1)
+            if (i != size - 1)
                 res.append(", ");
         }
         res.append(']');
         return res.toString();
+    }
+
+    // 将数组容量改为newCapacity大小
+    @SuppressWarnings("unchecked")
+    private void resize(int newCapacity) {
+
+        E[] newData = (E[]) new Object[newCapacity];
+        for (int i = 0; i < size; i++)
+            newData[i] = data[i];
+
+        data = newData;
     }
 }
