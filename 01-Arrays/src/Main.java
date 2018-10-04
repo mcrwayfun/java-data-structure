@@ -1,5 +1,3 @@
-package com.qingtian.source.array;
-
 /**
  * @author mcrwayfun
  * @version v1.0
