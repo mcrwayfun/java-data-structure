@@ -119,13 +119,13 @@ public class Array<E> {
     }
 
     // 从数组中删除最后一个元素
-    public void removeLast() {
-        remove(size - 1);
+    public E removeLast() {
+        return remove(size - 1);
     }
 
     // 从数组中删除元素e
-    public void removeFirst() {
-        remove(0);
+    public E removeFirst() {
+        return remove(0);
     }
 
     // 删除数组中指定的元素e
