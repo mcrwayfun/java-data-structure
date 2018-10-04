@@ -117,8 +117,8 @@ public class Array<E> {
             throw new IllegalArgumentException("Remove failed.index is invalid !");
 
         E ret = data[index];
-        for (int i = index; i <= size - 1; i++)
-            data[i] = data[i + 1];
+        for (int i = index + 1; i <= size - 1; i++)
+            data[i - 1] = data[i];
         size--;
         data[size] = null;// help gc
 
