@@ -2,7 +2,7 @@
  * @author mcrwayfun
  * @version v1.0
  * @date Created in 2018/10/06
- * @description 双向链表实现队列
+ * @description 带尾指针链表实现队列
  */
 public class LinkedListQueue<E> implements Queue<E> {
 
