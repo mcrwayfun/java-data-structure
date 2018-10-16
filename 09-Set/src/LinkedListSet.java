@@ -3,45 +3,47 @@ import java.util.ArrayList;
 /**
  * @author mcrwayfun
  * @version v1.0
- * @date Created in 2018/10/16
+ * @date Created in 2018/10/17
  * @description
  */
-public class BSTSet<E extends Comparable<E>> implements Set<E> {
+public class LinkedListSet<E> implements Set<E> {
 
-    private BST<E> bst;
+    private LinkedList<E> linkedList;
 
-    public BSTSet(){
-        bst = new BST<>();
+    public LinkedListSet(){
+        linkedList = new LinkedList<>();
     }
 
-    // 返回是否为空
+    // 返回集合是否为空
     @Override
     public boolean isEmpty(){
-        return bst.isEmpty();
+        return linkedList.isEmpty();
     }
 
-    // 返回当前元素个数
+    // 返回集合中元素的个数
     @Override
     public int getSize(){
-        return bst.getSize();
+        return linkedList.getSize();
     }
 
     // 添加元素
     @Override
     public void add(E e){
-        bst.add(e);
+
+        if(!linkedList.contains(e))
+            linkedList.addFirst(e);
     }
 
     // 移除元素
     @Override
     public void remove(E e){
-        bst.remove(e);
+        linkedList.removeElement(e);
     }
 
-    // 判断元素是否存在
+    // 返回集合中是否包含该元素
     @Override
     public boolean contains(E e){
-        return bst.contains(e);
+        return linkedList.contains(e);
     }
 
     public static void main(String[] args) {
@@ -52,7 +54,7 @@ public class BSTSet<E extends Comparable<E>> implements Set<E> {
         if(FileOperation.readFile("pride-and-prejudice.txt", words1)) {
             System.out.println("Total words: " + words1.size());
 
-            BSTSet<String> set1 = new BSTSet<>();
+            LinkedListSet<String> set1 = new LinkedListSet<>();
             for (String word : words1)
                 set1.add(word);
             System.out.println("Total different words: " + set1.getSize());
@@ -60,18 +62,16 @@ public class BSTSet<E extends Comparable<E>> implements Set<E> {
 
         System.out.println();
 
-
         System.out.println("A Tale of Two Cities");
 
         ArrayList<String> words2 = new ArrayList<>();
         if(FileOperation.readFile("a-tale-of-two-cities.txt", words2)){
             System.out.println("Total words: " + words2.size());
 
-            BSTSet<String> set2 = new BSTSet<>();
+            LinkedListSet<String> set2 = new LinkedListSet<>();
             for(String word: words2)
                 set2.add(word);
             System.out.println("Total different words: " + set2.getSize());
         }
-
     }
 }
