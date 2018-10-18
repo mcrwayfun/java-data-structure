@@ -17,6 +17,14 @@ public class Array<E> {
         this.size = 0;
     }
 
+    @SuppressWarnings("unchecked")
+    public Array(E[] arr) {
+        data = (E[]) new Object[arr.length];
+        for (int i = 0; i < arr.length; i++)
+            data[i] = arr[i];
+        size = arr.length;
+    }
+
     public Array() {
         this(10);
     }
@@ -161,6 +169,18 @@ public class Array<E> {
 
         data = newData;
     }
+
+    // 交换数据元素
+    public void swap(int k, int j) {
+
+        if (k < 0 || k >= size || j < 0 || j >= size)
+            throw new IllegalArgumentException("Array Index is invalid");
+
+        E temp = data[k];
+        data[k] = data[j];
+        data[j] = temp;
+    }
+
 
     public static void main(String[] args) {
 
