@@ -12,4 +12,8 @@ public class UnionFind {
     // 这也是我们的rank不叫height或者depth的原因, 它只是作为比较的一个标准
     private int[] rank;
     private int[] parent; // parent[i]表示第i个元素所指向的父节点
+
+    public UnionFind(){
+    	
+    }
 }
