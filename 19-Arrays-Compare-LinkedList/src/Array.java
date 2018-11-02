@@ -54,6 +54,8 @@ public class Array<E> {
         add(size, e);
     }
 
+    void addFirst(E e){add(0,e);}
+
     // 将数组容量改为newCapacity大小
     @SuppressWarnings("unchecked")
     private void resize(int newCapacity) {
