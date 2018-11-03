@@ -84,21 +84,21 @@ public class AVLTree<K extends Comparable<K>, V> {
         // 调整树结构至重新平衡
         // LL：在当前节点的左子树的左子树中插入了一个节点
         if (balanceFactor > 1 && getBalanceFactor(node.left) >= 0)
-            rightRotate(node);
+            return rightRotate(node);
         // RR：在当前节点的右子树的右子树中插入了一个节点
         if (balanceFactor < -1 && getBalanceFactor(node.right) <= 0)
-            leftRotate(node);
+            return leftRotate(node);
         // LR：在当前节点的左子树的右子树中插入了一个节点
         if (balanceFactor > 1 && getBalanceFactor(node.left) < 0) {
             // 先进行一次左转，将树变为LL结构
             node.left = leftRotate(node.left);
-            rightRotate(node);
+            return rightRotate(node);
         }
         // RL：在当前节点的右子树的左子树中插入了一个节点
         if (balanceFactor < -1 && getBalanceFactor(node.right) > 0) {
             // 先进行一次右转，将树变为RR结构
             node.right = rightRotate(node.right);
-            leftRotate(node);
+            return leftRotate(node);
         }
 
         return node;
