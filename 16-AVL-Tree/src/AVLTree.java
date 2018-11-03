@@ -79,29 +79,7 @@ public class AVLTree<K extends Comparable<K>, V> {
         // 修改当前节点树的高度
         node.height = 1 + Math.max(getHeight(node.left), getHeight(node.right));
 
-        // 计算平衡因子
-        int balanceFactor = getBalanceFactor(node);
-        // 调整树结构至重新平衡
-        // LL：在当前节点的左子树的左子树中插入了一个节点
-        if (balanceFactor > 1 && getBalanceFactor(node.left) >= 0)
-            return rightRotate(node);
-        // RR：在当前节点的右子树的右子树中插入了一个节点
-        if (balanceFactor < -1 && getBalanceFactor(node.right) <= 0)
-            return leftRotate(node);
-        // LR：在当前节点的左子树的右子树中插入了一个节点
-        if (balanceFactor > 1 && getBalanceFactor(node.left) < 0) {
-            // 先进行一次左转，将树变为LL结构
-            node.left = leftRotate(node.left);
-            return rightRotate(node);
-        }
-        // RL：在当前节点的右子树的左子树中插入了一个节点
-        if (balanceFactor < -1 && getBalanceFactor(node.right) > 0) {
-            // 先进行一次右转，将树变为RR结构
-            node.right = rightRotate(node.right);
-            return leftRotate(node);
-        }
-
-        return node;
+        return balance(node);
     }
 
     // 返回以node为根节点的二分搜索树中，key所在的节点
@@ -181,19 +159,7 @@ public class AVLTree<K extends Comparable<K>, V> {
             retNode = node;
         } else {   // key.compareTo(node.key) == 0
 
-            // 待删除节点左子树为空的情况
-            if (node.left == null) {
-                Node rightNode = node.right;
-                node.right = null;
-                size--;
-                retNode = rightNode;
-            }// 待删除节点右子树为空的情况
-            else if (node.right == null) {
-                Node leftNode = node.left;
-                node.left = null;
-                size--;
-                retNode = leftNode;
-            } else {
+            if (node.left != null && node.right != null) {
                 // 待删除节点左右子树均不为空的情况
                 // 找到比待删除节点大的最小节点, 即待删除节点右子树的最小节点
                 // 用这个节点顶替待删除节点的位置
@@ -204,6 +170,10 @@ public class AVLTree<K extends Comparable<K>, V> {
                 node.left = node.right = null;
 
                 retNode = successor;
+            } else {
+                // 左子树或者右子树为空
+                retNode = (node.left != null) ? node.left : node.right;
+                size--;
             }
         }
 
@@ -213,29 +183,36 @@ public class AVLTree<K extends Comparable<K>, V> {
         // 修改当前节点树的高度
         retNode.height = 1 + Math.max(getHeight(retNode.left), getHeight(retNode.right));
 
+        return balance(retNode);
+    }
+
+    private Node balance(Node node) {
+        if (node == null)
+            return null;
+
         // 计算平衡因子
-        int balanceFactor = getBalanceFactor(retNode);
+        int balanceFactor = getBalanceFactor(node);
         // 调整树结构至重新平衡
         // LL：在当前节点的左子树的左子树中插入了一个节点
-        if (balanceFactor > 1 && getBalanceFactor(retNode.left) >= 0)
-            rightRotate(retNode);
+        if (balanceFactor > 1 && getBalanceFactor(node.left) >= 0)
+            return rightRotate(node);
         // RR：在当前节点的右子树的右子树中插入了一个节点
-        if (balanceFactor < -1 && getBalanceFactor(retNode.right) <= 0)
-            leftRotate(retNode);
+        if (balanceFactor < -1 && getBalanceFactor(node.right) <= 0)
+            return leftRotate(node);
         // LR：在当前节点的左子树的右子树中插入了一个节点
-        if (balanceFactor > 1 && getBalanceFactor(retNode.left) < 0) {
+        if (balanceFactor > 1 && getBalanceFactor(node.left) < 0) {
             // 先进行一次左转，将树变为LL结构
-            retNode.left = leftRotate(retNode.left);
-            rightRotate(retNode);
+            node.left = leftRotate(node.left);
+            return rightRotate(node);
         }
         // RL：在当前节点的右子树的左子树中插入了一个节点
-        if (balanceFactor < -1 && getBalanceFactor(retNode.right) > 0) {
+        if (balanceFactor < -1 && getBalanceFactor(node.right) > 0) {
             // 先进行一次右转，将树变为RR结构
-            retNode.right = rightRotate(retNode.right);
-            leftRotate(retNode);
+            node.right = rightRotate(node.right);
+            return leftRotate(node);
         }
-
-        return retNode;
+        // nothing
+        return node;
     }
 
     // 判断该二叉树是否是一棵二分搜索树
